@@ -2,6 +2,7 @@
 import math
 from colors import *
 from pygame import Rect
+from utils import calcAngle
 
 class Unit(object):
     def __init__(self, player, coord, ai, hp, speed):
@@ -30,6 +31,7 @@ class MilitaryUnit(Unit):
         self.coolOff = 0
         self.firing = False
         self.coord = self.rect.center
+        self.attackPoint = 0
         
     def act(self, world):
         self.coolOff -= 1
@@ -56,6 +58,9 @@ class MilitaryUnit(Unit):
         "Attack the unit"
         self.coolOff = self.rate
         self.firing = True
+        attackAngle = calcAngle(self.coord, unit.coord)
+        self.attackPoint = (self.coord[0] - 10*math.cos(attackAngle),
+                            self.coord[1] - 10*math.sin(attackAngle))
         unit.sufferDamage(self.damage, world)
 
     def sufferDamage(self, damage, world=None):
@@ -73,7 +78,7 @@ class BlueUnit(MilitaryUnit):
         pygame.draw.circle(screen, self.player.color, self.rect.center, 10)
         pygame.draw.circle(screen, BLUE, self.rect.center, 8)
         if self.firing:
-            pygame.draw.circle(screen, WHITE, self.rect.midleft, 2)
+            pygame.draw.circle(screen, WHITE, self.attackPoint, 2)
 
 class YellowUnit(MilitaryUnit):
     """ A unit who fights with a "rifle"
@@ -85,7 +90,8 @@ class YellowUnit(MilitaryUnit):
         pygame.draw.circle(screen, self.player.color, self.rect.center, 10)
         pygame.draw.circle(screen, YELLOW, self.rect.center, 8)
         if self.firing:
-            pygame.draw.circle(screen, WHITE, self.rect.midleft, 2)
+            pygame.draw.circle(screen, self.player.color, self.attackPoint, 7)
+            pygame.draw.circle(screen, YELLOW, self.attackPoint, 5)
 
 class GreenUnit(MilitaryUnit):
     """ A unit who fights with a "rifle"
@@ -97,4 +103,4 @@ class GreenUnit(MilitaryUnit):
         pygame.draw.circle(screen, self.player.color, self.rect.center, 10)
         pygame.draw.circle(screen, GREEN, self.rect.center, 8)
         if self.firing:
-            pygame.draw.circle(screen, WHITE, self.rect.midleft, 2)
+            pygame.draw.circle(screen, WHITE, self.attackPoint, 4)
