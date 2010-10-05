@@ -53,21 +53,23 @@ class MilitaryUnit(Unit):
         self.coord = (self.coord[0] + a/d, self.coord[1] + b/d)
         self.rect.center = self.coord
         
-        
     def attack(self, world, unit):
         "Attack the unit"
         self.coolOff = self.rate
         self.firing = True
-        attackAngle = calcAngle(self.coord, unit.coord)
-        self.attackPoint = (self.coord[0] - 10*math.cos(attackAngle),
-                            self.coord[1] - 10*math.sin(attackAngle))
+        self.setAttackPoint(unit)
         unit.sufferDamage(self.damage, world)
 
     def sufferDamage(self, damage, world=None):
         self.hp -= damage
         if self.hp <= 0 and world:
             world.kill(self)
-        
+
+    def setAttackPoint(self, unit):
+        attackAngle = calcAngle(self.coord, unit.coord)
+        self.attackPoint = (self.coord[0] - 10*math.cos(attackAngle),
+                            self.coord[1] - 10*math.sin(attackAngle))
+
 class BlueUnit(MilitaryUnit):
     """ A unit who fights with a "rifle"
     """
@@ -80,8 +82,23 @@ class BlueUnit(MilitaryUnit):
         if self.firing:
             pygame.draw.circle(screen, WHITE, self.attackPoint, 2)
 
+class RedUnit(MilitaryUnit):
+    """ A unit who fights with a "flame thrower"
+    """
+    def __init__(self, player, coord, ai):
+        super(RedUnit, self).__init__(player, coord, ai, 20, 2, 5, 30, 4)
+
+    def blit(self, screen):
+        pygame.draw.circle(screen, self.player.color, self.rect.center, 10)
+        pygame.draw.circle(screen, RED, self.rect.center, 8)
+        if self.firing:
+            p2 = tuple([(self.attackPoint[i]-self.coord[i])*2+self.coord[i]
+                        for i in range(2)])
+            pygame.draw.circle(screen, RED, self.attackPoint, 4)
+            pygame.draw.circle(screen, RED, p2, 8)
+    
 class YellowUnit(MilitaryUnit):
-    """ A unit who fights with a "rifle"
+    """ A unit who fights with "vicious teeth"
     """
     def __init__(self, player, coord, ai):
         super(YellowUnit, self).__init__(player, coord, ai, 8, 3, 1, 20, 1)
@@ -94,7 +111,7 @@ class YellowUnit(MilitaryUnit):
             pygame.draw.circle(screen, YELLOW, self.attackPoint, 5)
 
 class GreenUnit(MilitaryUnit):
-    """ A unit who fights with a "rifle"
+    """ A unit who fights with a "sniper rifle"
     """
     def __init__(self, player, coord, ai):
         super(GreenUnit, self).__init__(player, coord, ai, 5, 1, 25, 60, 40)

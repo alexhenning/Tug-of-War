@@ -8,5 +8,5 @@ class Player(object):
         self.dest = dest
         self.spawn = spawn
     def getUnit(self, ):
-        unit = random.choice([units.BlueUnit, units.YellowUnit, units.GreenUnit])
+        unit = random.choice([units.BlueUnit, units.RedUnit, units.YellowUnit, units.GreenUnit])
         return unit(self, self.spawn.getPoint(), SimpleAI(self))
