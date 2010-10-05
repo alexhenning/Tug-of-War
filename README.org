@@ -2,3 +2,65 @@ Tug of war
 
 * About...
 This will be a tug of war game...
+
+* Layout of the game:
+#+BEGIN_SRC ditaa :file diagram.png
+  /--------+----------------------------------------------------------------+--------\
+  |cBLU    | cAAA                                                           |cRED    |
+  |        |                                                                |        |
+  |        |                                                                |        |
+  |   *--> |                                                                | <--*   |
+  |        |                                                                |        |
+  |        |      *--------->                               <---------*     |        |
+  |        |                                                                |        |
+  |        | *-------->                                          <--------* |        |
+  |        |                                                                |        |
+  |        |                                                                |        |
+  |        |                                                                |        |
+  \--------+----------------------------------------------------------------+--------/
+                                                             
+       /----\       /----------------------------------------------\       /----\
+       |cBLU|       |                                              |       |cBLU|
+       |    |       |                                              |       |    |
+       |    |       |                                              |       |    |
+  /----+----+----\  |                                              |  /----+----+----\
+  |cGRE|cAAA|cRED|  |                                              |  |cGRE|cAAA|cRED|
+  |    |    |    |  |                                              |  |    |    |    |
+  |    |    |    |  |                                              |  |    |    |    |
+  \----+----+----/  |                                              |  \----+----+----/
+       |cYEL|       |                                              |       |cYEL|
+       |    |       |                                              |       |    |
+       |    |       |                                              |       |    |
+       \----/       \----------------------------------------------/       \----/
+#+END_SRC
+
+
+
+* Units:
+- Blue units :: Fire rapid weak shots
+  * *HP:* 10
+  * *Speed:* 2
+  * *Damage:* 1  
+  * *Rate:* .1s
+  * *Range:* 20
+
+- Red units :: Have a moderate strength area attack
+  * *HP:* 20
+  * *Speed:* 2
+  * *Damage:* 2
+  * *Rate:* .2s
+  * *Range:* 10
+
+- Yellow units :: Have a quick weak melee
+  * *HP:* 8
+  * *Speed:* 3
+  * *Damage:* 1
+  * *Rate:* .05s
+  * *Range:* 2
+
+- Green units :: Have a strong slow shot
+  * *HP:* 20
+  * *Speed:* 1
+  * *Damage:* 25
+  * *Rate:* 1s
+  * *Range:* 30

@@ -1,5 +1,5 @@
 
-import pygame, sys
+import pygame, sys, world
 
 def main():
     pygame.init()
@@ -10,14 +10,19 @@ def main():
     background = background.convert()
     background.fill((250, 250, 250))
     f = pygame.font.Font(pygame.font.get_default_font(), 20)
+
+    w = world.World()
+
     clock = pygame.time.Clock()
 
     while True:
         for event in pygame.event.get():
             if event.type == pygame.constants.QUIT: sys.exit(0)
 
-        screen.blit(background, (0, 0))
+        w.tick()
             
+        screen.blit(background, (0, 0))
+        w.blit(screen)
         pygame.display.flip()
         
         clock.tick(20)
