@@ -1,5 +1,8 @@
 
-import pygame, sys, world
+import pygame, sys
+from world import World
+from player import Player
+from colors import *
 
 def main():
     pygame.init()
@@ -11,7 +14,7 @@ def main():
     background.fill((250, 250, 250))
     f = pygame.font.Font(pygame.font.get_default_font(), 20)
 
-    w = world.World()
+    w = World(Player(DARKBLUE, (800, 50)), Player(DARKRED, ()))
 
     clock = pygame.time.Clock()
 

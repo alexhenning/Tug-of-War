@@ -1,18 +1,21 @@
 
 import pygame, random, units
-
+from ai import SimpleAI
 from colors import *
 
 class World(object):
-    def __init__(self):
+    def __init__(self, p1, p2):
         """ An object that represents the world
         """
 
         self.ticks = 0
 
-        self.blueSpawn = Rect(0, 25, 50, 200, DARKBLUE)
+        self.p1 = p1
+        self.p1Spawn = Rect(0, 25, 50, 200, self.p1.color)
+
+        self.p2 = p2
         
-        self.objects = [self.blueSpawn,
+        self.objects = [self.p1Spawn,
                         Rect(50, 25, 700, 200, GRAY),
                         Rect(750, 25, 50, 200, DARKRED)]
 
@@ -22,8 +25,11 @@ class World(object):
         self.ticks += 1
 
         if self.ticks % 20 == 0:
-            self.units.append(units.BlueUnit(DARKBLUE, self.blueSpawn.getPoint(), ()))
-            
+            self.units.append(units.BlueUnit(self.p1,
+                                             self.p1Spawn.getPoint(),
+                                             SimpleAI(self.p1)))
+        for unit in self.units:
+            unit.act(self)
             
     def blit(self, screen):
         for i in self.objects:
