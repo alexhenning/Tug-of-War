@@ -80,7 +80,7 @@ class BlueUnit(MilitaryUnit):
     """ A unit who fights with a "rifle"
     """
     def __init__(self, player, coord, ai):
-        super(BlueUnit, self).__init__(player, coord, ai, 10, 2, 1, 40, 2)
+        super(BlueUnit, self).__init__(player, coord, ai, 10, 2, 1, 50, 2)
 
     def blit(self, screen):
         pygame.draw.circle(screen, self.player.color, self.rect.center, 10)
@@ -98,7 +98,7 @@ class RedUnit(MilitaryUnit):
     """ A unit who fights with a "flame thrower"
     """
     def __init__(self, player, coord, ai):
-        super(RedUnit, self).__init__(player, coord, ai, 20, 2, 5, 30, 4)
+        super(RedUnit, self).__init__(player, coord, ai, 8, 2, 1, 35, 1)
 
     def blit(self, screen):
         pygame.draw.circle(screen, self.player.color, self.rect.center, 10)
@@ -109,18 +109,16 @@ class RedUnit(MilitaryUnit):
             pygame.draw.circle(screen, RED, self.attackPoint, 4)
             pygame.draw.circle(screen, RED, p2, 8)
 
-    def isFiring(self): return self.coolOff > self.rate-3
-
     def getColor(self):
         return pygame.Color(255,
-                            int(255 - (255 * self.hp/20.)),
-                            int(255 - (255 * self.hp/20.)))
+                            int(255 - (255 * self.hp/8.)),
+                            int(255 - (255 * self.hp/8.)))
     
 class YellowUnit(MilitaryUnit):
     """ A unit who fights with "vicious teeth"
     """
     def __init__(self, player, coord, ai):
-        super(YellowUnit, self).__init__(player, coord, ai, 8, 3, 1, 20, 1)
+        super(YellowUnit, self).__init__(player, coord, ai, 15, 3, 4, 25, 2)
 
     def blit(self, screen):
         pygame.draw.circle(screen, self.player.color, self.rect.center, 10)
@@ -132,13 +130,13 @@ class YellowUnit(MilitaryUnit):
     def getColor(self):
         return pygame.Color(255,
                             255,
-                            int(255 - (255 * self.hp/8.)))
+                            int(255 - (255 * self.hp/15.)))
 
 class GreenUnit(MilitaryUnit):
     """ A unit who fights with a "sniper rifle"
     """
     def __init__(self, player, coord, ai):
-        super(GreenUnit, self).__init__(player, coord, ai, 5, 1, 25, 60, 40)
+        super(GreenUnit, self).__init__(player, coord, ai, 5, 1, 25, 80, 40)
 
     def blit(self, screen):
         pygame.draw.circle(screen, self.player.color, self.rect.center, 10)

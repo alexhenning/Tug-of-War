@@ -41,26 +41,26 @@ This will be a tug of war game...
   * *HP:* 10
   * *Speed:* 2
   * *Damage:* 1  
-  * *Range:* 20 + 20 for the radius
+  * *Range:* 30 + 20 for the radius
   * *Rate:* 2 ticks
 
 - Red units :: Have a moderate strength area attack
-  * *HP:* 20
+  * *HP:* 8
   * *Speed:* 2
-  * *Damage:* 5
-  * *Range:* 10 + 20 for the radius
-  * *Rate:* 4 ticks
+  * *Damage:* 1
+  * *Range:* 15 + 20 for the radius
+  * *Rate:* 1 tick
 
 - Yellow units :: Have a quick weak melee
-  * *HP:* 8
+  * *HP:* 15
   * *Speed:* 3
-  * *Damage:* 1
-  * *Range:* 0 + 20 for the radius
-  * *Rate:* 1 tick
+  * *Damage:* 4
+  * *Range:* 5 + 20 for the radius
+  * *Rate:* 2 ticks
 
 - Green units :: Have a strong slow shot
   * *HP:* 20
   * *Speed:* 1
   * *Damage:* 25
-  * *Range:* 40 + 20 for the radius
+  * *Range:* 60 + 20 for the radius
   * *Rate:* 40 ticks
