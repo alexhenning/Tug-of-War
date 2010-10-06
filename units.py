@@ -21,6 +21,11 @@ class Unit(object):
     def act(self, world):
         raise NotImplemented("%s has not implemented act()"%type(self))
 
+class SelectionUnit(Unit):
+    def __init__(self, player, coord, ai, bounds):
+        super(SelectionUnit, self).__init__(player, coord, ai, 1000, 4)
+        self.bounds = bounds
+    
 class MilitaryUnit(Unit):
     def __init__(self, player, coord, ai, hp, speed, damage, range_, rate):
         super(MilitaryUnit, self).__init__(player, coord, ai, hp, speed)
@@ -35,7 +40,7 @@ class MilitaryUnit(Unit):
         
     def act(self, world):
         self.coolOff -= 1
-        self.firing = False
+        self.firing = self.isFiring()
         
         action = self.ai.tick(self, world)
         if action.action == "move":
@@ -69,6 +74,7 @@ class MilitaryUnit(Unit):
         attackAngle = calcAngle(self.coord, unit.coord)
         self.attackPoint = (self.coord[0] - 10*math.cos(attackAngle),
                             self.coord[1] - 10*math.sin(attackAngle))
+    def isFiring(self): return False
 
 class BlueUnit(MilitaryUnit):
     """ A unit who fights with a "rifle"
@@ -78,9 +84,15 @@ class BlueUnit(MilitaryUnit):
 
     def blit(self, screen):
         pygame.draw.circle(screen, self.player.color, self.rect.center, 10)
-        pygame.draw.circle(screen, BLUE, self.rect.center, 8)
+        pygame.draw.circle(screen, self.getColor(), self.rect.center, 8)
         if self.firing:
             pygame.draw.circle(screen, WHITE, self.attackPoint, 2)
+
+    def getColor(self):
+        return pygame.Color(int(255 - (255 * self.hp/10.)),
+                            int(255 - (255 * self.hp/10.)),
+                            255)
+
 
 class RedUnit(MilitaryUnit):
     """ A unit who fights with a "flame thrower"
@@ -90,12 +102,19 @@ class RedUnit(MilitaryUnit):
 
     def blit(self, screen):
         pygame.draw.circle(screen, self.player.color, self.rect.center, 10)
-        pygame.draw.circle(screen, RED, self.rect.center, 8)
+        pygame.draw.circle(screen, self.getColor(), self.rect.center, 8)
         if self.firing:
             p2 = tuple([(self.attackPoint[i]-self.coord[i])*2+self.coord[i]
                         for i in range(2)])
             pygame.draw.circle(screen, RED, self.attackPoint, 4)
             pygame.draw.circle(screen, RED, p2, 8)
+
+    def isFiring(self): return self.coolOff > self.rate-3
+
+    def getColor(self):
+        return pygame.Color(255,
+                            int(255 - (255 * self.hp/20.)),
+                            int(255 - (255 * self.hp/20.)))
     
 class YellowUnit(MilitaryUnit):
     """ A unit who fights with "vicious teeth"
@@ -105,10 +124,15 @@ class YellowUnit(MilitaryUnit):
 
     def blit(self, screen):
         pygame.draw.circle(screen, self.player.color, self.rect.center, 10)
-        pygame.draw.circle(screen, YELLOW, self.rect.center, 8)
+        pygame.draw.circle(screen, self.getColor(), self.rect.center, 8)
         if self.firing:
             pygame.draw.circle(screen, self.player.color, self.attackPoint, 7)
-            pygame.draw.circle(screen, YELLOW, self.attackPoint, 5)
+            pygame.draw.circle(screen, self.getColor(), self.attackPoint, 5)
+
+    def getColor(self):
+        return pygame.Color(255,
+                            255,
+                            int(255 - (255 * self.hp/8.)))
 
 class GreenUnit(MilitaryUnit):
     """ A unit who fights with a "sniper rifle"
@@ -118,6 +142,11 @@ class GreenUnit(MilitaryUnit):
 
     def blit(self, screen):
         pygame.draw.circle(screen, self.player.color, self.rect.center, 10)
-        pygame.draw.circle(screen, GREEN, self.rect.center, 8)
+        pygame.draw.circle(screen, self.getColor(), self.rect.center, 8)
         if self.firing:
             pygame.draw.circle(screen, WHITE, self.attackPoint, 4)
+
+    def getColor(self):
+        return pygame.Color(int(255 - (255 * self.hp/5.)),
+                            126,
+                            int(255 - (255 * self.hp/5.)))

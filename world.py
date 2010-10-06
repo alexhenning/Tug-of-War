@@ -1,6 +1,6 @@
 
 import pygame, random
-from colors import GRAY
+from colors import BLUE, GREEN, GRAY, RED, YELLOW
 
 class World(object):
     def __init__(self, p1, p2):
@@ -10,16 +10,18 @@ class World(object):
         self.ticks = 0
 
         self.p1 = p1
-        self.p1Spawn = Rect(0, 25, 50, 200, self.p1.color)
-        self.p1.spawn = self.p1Spawn
+        self.p1.spawn = Rect(0, 25, 50, 200, self.p1.color)
+        self.p1.pad = Pad(0, 275)
 
         self.p2 = p2
-        self.p2Spawn = Rect(750, 25, 50, 200, self.p2.color)
-        self.p2.spawn = self.p2Spawn
+        self.p2.spawn = Rect(750, 25, 50, 200, self.p2.color)
+        self.p2.pad = Pad(650, 275)
         
-        self.objects = [self.p1Spawn,
+        self.objects = [self.p1.spawn,
+                        self.p1.pad,
                         Rect(50, 25, 700, 200, GRAY),
-                        self.p2Spawn]
+                        self.p2.spawn,
+                        self.p2.pad]
 
         self.units = []
                                  
@@ -35,10 +37,10 @@ class World(object):
 
         for unit in self.units:
             if unit.player == self.p1:
-                if self.p2Spawn.contains(unit.rect):
+                if self.p2.spawn.contains(unit.rect):
                     return False
             else:
-                if self.p1Spawn.contains(unit.rect):
+                if self.p1.spawn.contains(unit.rect):
                     return False
         return True
             
@@ -51,6 +53,18 @@ class World(object):
     def kill(self, unit):
         self.units.remove(unit)
 
+class Pad(object):
+    def __init__(self, x, y):
+        self.parts = [Rect(x+50, y, 50, 50, BLUE),
+                      Rect(x, y+50, 50, 50, GREEN),
+                      Rect(x+50, y+50, 50, 50, GRAY),
+                      Rect(x+100, y+50, 50, 50, RED),
+                      Rect(x+50, y+100, 50, 50, YELLOW)]
+        self.units = []
+    def blit(self, screen):
+        for part in self.parts:
+            part.blit(screen)
+        
 class Rect(object):
     def __init__(self, x, y, width, height, color):
         self.rect = pygame.Rect(x, y, width, height)
