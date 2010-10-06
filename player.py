@@ -3,15 +3,14 @@ import units, random
 from ai import SimpleAI
 
 class Player(object):
-    def __init__(self, color, dest, spawn=None):
+    def __init__(self, color, dest, bonuses=[20, 50, 100, 200, 500, 1000], spawn=None):
         self.color = color
         self.dest = dest
         self.spawn = spawn
         self.kills = 0
+        self.bonuses = bonuses
         self.pad = None
-    def getUnit(self, ):
-        if self.pad:
-            unit = self.pad.getUnit()
-        else:
-            unit = random.choice([units.BlueUnit, units.RedUnit, units.YellowUnit, units.GreenUnit])
-        return unit(self, self.spawn.getPoint(), SimpleAI(self))
+    def getUnits(self):
+        units = self.pad.getUnits()
+        return [unit(self, self.spawn.getPoint(), SimpleAI(self))
+                for unit in units]

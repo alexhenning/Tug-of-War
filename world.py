@@ -29,8 +29,8 @@ class World(object):
         self.ticks += 1
 
         if self.ticks % 20 == 0:
-            self.units.append(self.p2.getUnit())
-            self.units.append(self.p1.getUnit())
+            self.units.extend(self.p2.getUnits())
+            self.units.extend(self.p1.getUnits())
             
         for unit in self.units:
             unit.act(self)
@@ -65,8 +65,14 @@ class World(object):
 
     def kill(self, unit):
         self.units.remove(unit)
-        if unit.player == self.p1: self.p2.kills +=1
-        else: self.p1.kills += 1
+        if unit.player == self.p1:
+            self.p2.kills +=1
+            if self.p2.kills in self.p2.bonuses:
+                self.p2.pad.addUnit()
+        else:
+            self.p1.kills += 1
+            if self.p1.kills in self.p1.bonuses:
+                self.p1.pad.addUnit()
 
     def leftClick(self, pos):
         if self.p1.pad.contains(pygame.Rect(pos[0], pos[1], 1, 1)):
@@ -110,16 +116,27 @@ class Pad(object):
     def leftClick(self, pos):
         for unit in self.units:
             if unit.contains(pos):
+                self.units[self.selected].selected = False
                 self.selected = self.units.index(unit)
+                self.units[self.selected].selected = True
 
     def rightClick(self, pos):
         self.units[self.selected].dest = pos
 
-    def getUnit(self):
-        for part in self.parts:
-            if part.contains(self.units[0].rect):
-                return unitMap[part.color]()
-        return unitMap[GRAY]()
+    def addUnit(self):
+        self.units[self.selected].selected = False
+        self.units.append(units.SelectionUnit(self.player, (self.parts[2].rect.x+25,
+                                                            self.parts[2].rect.y+25),
+                                              ()))
+        self.selected = len(self.units)-1
+        
+    def getUnits(self):
+        units = []
+        for unit in self.units:
+            for part in self.parts:
+                if part.contains(unit.rect):
+                    units.append(unitMap[part.color]())
+        return units
 unitMap = {BLUE: lambda: units.BlueUnit,
            RED: lambda: units.RedUnit,
            YELLOW: lambda: units.YellowUnit,
