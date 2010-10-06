@@ -2,7 +2,7 @@
 import math
 from colors import *
 from pygame import Rect
-from utils import calcAngle
+from utils import calcAngle, dist
 
 class Unit(object):
     def __init__(self, player, coord, ai, hp, speed):
@@ -14,18 +14,52 @@ class Unit(object):
         """
         self.player = player
         self.rect = Rect(coord[0]-5, coord[1]-5, 10, 10)
+        self.coord = coord
         self.ai = ai
         self.hp = hp
         self.speed = speed
 
+    def move(self, world, dest):
+        "Move along the shortest path to the destination"
+        if dist(self, dest) <= self.speed:
+            self.coord = dest
+            self.rect.center = dest
+        else:
+            if dest == self.rect.center: return
+            a = dest[0] - self.coord[0]
+            b = dest[1] - self.coord[1]
+            c = math.sqrt(a**2 + b**2)
+            d = c / self.speed
+            self.coord = (self.coord[0] + a/d, self.coord[1] + b/d)
+            self.rect.center = self.coord
+        
     def act(self, world):
         raise NotImplemented("%s has not implemented act()"%type(self))
 
+    def blit(self, screen):
+        raise NotImplemented("%s has not implemented blit()"%type(self))
+
+    def contains(self, p):
+        if type(p) == pygame.Rect: return self.rect.contains(p)
+        else: return self.rect.contains(pygame.Rect(p[0],p[1], 1, 1))
+
 class SelectionUnit(Unit):
-    def __init__(self, player, coord, ai, bounds):
+    def __init__(self, player, coord, ai):
         super(SelectionUnit, self).__init__(player, coord, ai, 1000, 4)
-        self.bounds = bounds
-    
+        self.dest = self.coord
+        self.selected = True
+
+    def act(self, world):
+        self.move(world, self.dest)
+
+    def blit(self, screen):
+        pygame.draw.circle(screen, self.player.color, self.rect.center, 10)
+        pygame.draw.circle(screen, self.getColor(), self.rect.center, 8)
+        
+    def getColor(self):
+        if self.selected: return BLUE
+        else: return GRAY
+                    
 class MilitaryUnit(Unit):
     def __init__(self, player, coord, ai, hp, speed, damage, range_, rate):
         super(MilitaryUnit, self).__init__(player, coord, ai, hp, speed)
@@ -35,7 +69,6 @@ class MilitaryUnit(Unit):
         
         self.coolOff = 0
         self.firing = False
-        self.coord = self.rect.center
         self.attackPoint = 0
         
     def act(self, world):
@@ -48,16 +81,6 @@ class MilitaryUnit(Unit):
         elif action.action == "attack":
             self.attack(world, **action)
             
-    def move(self, world, dest):
-        "Move along the shortest path to the destination"
-        if dest == self.rect.center: return
-        a = dest[0] - self.coord[0]
-        b = dest[1] - self.coord[1]
-        c = math.sqrt(a**2 + b**2)
-        d = c / self.speed
-        self.coord = (self.coord[0] + a/d, self.coord[1] + b/d)
-        self.rect.center = self.coord
-        
     def attack(self, world, unit):
         "Attack the unit"
         self.coolOff = self.rate

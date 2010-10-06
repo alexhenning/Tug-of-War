@@ -7,6 +7,10 @@ class Player(object):
         self.color = color
         self.dest = dest
         self.spawn = spawn
+        self.pad = None
     def getUnit(self, ):
-        unit = random.choice([units.BlueUnit, units.RedUnit, units.YellowUnit, units.GreenUnit])
+        if self.pad:
+            unit = self.pad.getUnit()
+        else:
+            unit = random.choice([units.BlueUnit, units.RedUnit, units.YellowUnit, units.GreenUnit])
         return unit(self, self.spawn.getPoint(), SimpleAI(self))

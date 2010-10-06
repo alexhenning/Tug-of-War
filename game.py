@@ -22,6 +22,10 @@ def main():
     while contin or True:
         for event in pygame.event.get():
             if event.type == pygame.constants.QUIT: sys.exit(0)
+            elif event.type == pygame.constants.MOUSEBUTTONUP:
+                if event.button == 1: w.leftClick(event.pos)
+                elif event.button == 3: w.rightClick(event.pos)
+                else: print event
 
         w.tick()
             
