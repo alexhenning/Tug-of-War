@@ -30,7 +30,7 @@ def main():
         w.tick()
             
         screen.blit(background, (0, 0))
-        contin = w.blit(screen)
+        contin = w.blit(screen, f)
         pygame.display.flip()
         
         clock.tick(20)

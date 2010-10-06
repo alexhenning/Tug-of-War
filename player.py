@@ -7,6 +7,7 @@ class Player(object):
         self.color = color
         self.dest = dest
         self.spawn = spawn
+        self.kills = 0
         self.pad = None
     def getUnit(self, ):
         if self.pad:

@@ -102,8 +102,11 @@ class MilitaryUnit(Unit):
 class BlueUnit(MilitaryUnit):
     """ A unit who fights with a "rifle"
     """
+    hp = 9; speed = 2; damage = 1.5; distance = 50; rate = 3
     def __init__(self, player, coord, ai):
-        super(BlueUnit, self).__init__(player, coord, ai, 10, 2, 1, 50, 2)
+        super(BlueUnit, self).__init__(player, coord, ai, BlueUnit.hp,
+                                       BlueUnit.speed, BlueUnit.damage,
+                                       BlueUnit.distance, BlueUnit.rate)
 
     def blit(self, screen):
         pygame.draw.circle(screen, self.player.color, self.rect.center, 10)
@@ -112,16 +115,19 @@ class BlueUnit(MilitaryUnit):
             pygame.draw.circle(screen, WHITE, self.attackPoint, 2)
 
     def getColor(self):
-        return pygame.Color(int(255 - (255 * self.hp/10.)),
-                            int(255 - (255 * self.hp/10.)),
+        return pygame.Color(int(255 - (255 * self.hp/float(BlueUnit.hp))),
+                            int(255 - (255 * self.hp/float(BlueUnit.hp))),
                             255)
 
 
 class RedUnit(MilitaryUnit):
     """ A unit who fights with a "flame thrower"
     """
+    hp = 9; speed = 2; damage = 1.5; distance = 30; rate = 1
     def __init__(self, player, coord, ai):
-        super(RedUnit, self).__init__(player, coord, ai, 8, 2, 1, 35, 1)
+        super(RedUnit, self).__init__(player, coord, ai, RedUnit.hp,
+                                      RedUnit.speed, RedUnit.damage,
+                                      RedUnit.distance, RedUnit.rate)
 
     def blit(self, screen):
         pygame.draw.circle(screen, self.player.color, self.rect.center, 10)
@@ -134,14 +140,18 @@ class RedUnit(MilitaryUnit):
 
     def getColor(self):
         return pygame.Color(255,
-                            int(255 - (255 * self.hp/8.)),
-                            int(255 - (255 * self.hp/8.)))
+                            int(255 - (255 * self.hp/float(RedUnit.hp))),
+                            int(255 - (255 * self.hp/float(RedUnit.hp))))
     
 class YellowUnit(MilitaryUnit):
     """ A unit who fights with "vicious teeth"
     """
+    hp = 13; speed = 3; damage = 4; distance = 25; rate = 3
     def __init__(self, player, coord, ai):
-        super(YellowUnit, self).__init__(player, coord, ai, 15, 3, 4, 25, 2)
+        super(YellowUnit, self).__init__(player, coord, ai, YellowUnit.hp,
+                                         YellowUnit.speed, YellowUnit.damage,
+                                         YellowUnit.distance,
+                                         YellowUnit.rate)
 
     def blit(self, screen):
         pygame.draw.circle(screen, self.player.color, self.rect.center, 10)
@@ -153,13 +163,16 @@ class YellowUnit(MilitaryUnit):
     def getColor(self):
         return pygame.Color(255,
                             255,
-                            int(255 - (255 * self.hp/15.)))
+                            int(255 - (255 * self.hp/float(YellowUnit.hp))))
 
 class GreenUnit(MilitaryUnit):
     """ A unit who fights with a "sniper rifle"
     """
+    hp = 6; speed = 1; damage = 5; distance = 60; rate = 20
     def __init__(self, player, coord, ai):
-        super(GreenUnit, self).__init__(player, coord, ai, 5, 1, 25, 80, 40)
+        super(GreenUnit, self).__init__(player, coord, ai, GreenUnit.hp,
+                                        GreenUnit.speed, GreenUnit.damage,
+                                        GreenUnit.distance, GreenUnit.rate)
 
     def blit(self, screen):
         pygame.draw.circle(screen, self.player.color, self.rect.center, 10)
@@ -168,6 +181,6 @@ class GreenUnit(MilitaryUnit):
             pygame.draw.circle(screen, WHITE, self.attackPoint, 4)
 
     def getColor(self):
-        return pygame.Color(int(255 - (255 * self.hp/5.)),
+        return pygame.Color(int(255 - (255 * self.hp/float(GreenUnit.hp))),
                             126,
-                            int(255 - (255 * self.hp/5.)))
+                            int(255 - (255 * self.hp/float(GreenUnit.hp))))

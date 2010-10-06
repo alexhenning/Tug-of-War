@@ -1,6 +1,6 @@
 
 import pygame, random, units
-from colors import BLUE, GREEN, GRAY, RED, YELLOW
+from colors import BLUE, GREEN, GRAY, RED, YELLOW, BLACK
 
 class World(object):
     def __init__(self, p1, p2):
@@ -15,13 +15,13 @@ class World(object):
 
         self.p2 = p2
         self.p2.spawn = Rect(750, 25, 50, 200, self.p2.color)
-        self.p2pad = Pad(650, 275, self.p2)
+        self.p2.pad = Pad(650, 275, self.p2)
         
         self.objects = [self.p1.spawn,
                         self.p1.pad,
                         Rect(50, 25, 700, 200, GRAY),
                         self.p2.spawn,
-                        self.p2pad]
+                        self.p2.pad]
 
         self.units = []
                                  
@@ -29,13 +29,14 @@ class World(object):
         self.ticks += 1
 
         if self.ticks % 20 == 0:
-            self.units.append(self.p1.getUnit())
             self.units.append(self.p2.getUnit())
+            self.units.append(self.p1.getUnit())
             
         for unit in self.units:
             unit.act(self)
 
         self.p1.pad.tick(self)
+        self.p2.pad.tick(self)
             
         for unit in self.units:
             if unit.player == self.p1:
@@ -46,22 +47,38 @@ class World(object):
                     return False
         return True
             
-    def blit(self, screen):
+    def blit(self, screen, font):
         for i in self.objects:
             i.blit(screen)
         for unit in self.units:
             unit.blit(screen)
+        temp = "%s - kills: %s units: %s"
+        s = temp%("Blue", self.p1.kills, len([i for i in self.units
+                                              if i.player == self.p1]))
+        screen.blit(font.render(s, True, BLACK), (5, 4))
+        
+        s = temp%("Red", self.p2.kills, len([i for i in self.units
+                                              if i.player == self.p2]))
+        text = font.render(s, True, BLACK)
+        screen.blit(text, (795-text.get_width(), 4))
+
 
     def kill(self, unit):
         self.units.remove(unit)
+        if unit.player == self.p1: self.p2.kills +=1
+        else: self.p1.kills += 1
 
     def leftClick(self, pos):
         if self.p1.pad.contains(pygame.Rect(pos[0], pos[1], 1, 1)):
             self.p1.pad.leftClick(pos)
+        if self.p2.pad.contains(pygame.Rect(pos[0], pos[1], 1, 1)):
+            self.p2.pad.leftClick(pos)
 
     def rightClick(self, pos):
         if self.p1.pad.contains(pygame.Rect(pos[0], pos[1], 1, 1)):
             self.p1.pad.rightClick(pos)
+        if self.p2.pad.contains(pygame.Rect(pos[0], pos[1], 1, 1)):
+            self.p2.pad.rightClick(pos)
 
 class Pad(object):
     def __init__(self, x, y, player):
@@ -102,6 +119,7 @@ class Pad(object):
         for part in self.parts:
             if part.contains(self.units[0].rect):
                 return unitMap[part.color]()
+        return unitMap[GRAY]()
 unitMap = {BLUE: lambda: units.BlueUnit,
            RED: lambda: units.RedUnit,
            YELLOW: lambda: units.YellowUnit,

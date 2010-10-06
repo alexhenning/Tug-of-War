@@ -64,3 +64,47 @@ This will be a tug of war game...
   * *Damage:* 25
   * *Range:* 60 + 20 for the radius
   * *Rate:* 40 ticks
+
+* Tests
+After one set of tests:
+
+Blue beats Red
+Blue loses to Yellow
+Blue loses to Green
+
+Green beats Blue
+Green beats Red
+Green Loses to Yellow
+
+Red loses to Blue
+Red loses to Green
+Red beats Yellow
+
+Yellow beats Blue
+Yellow beats Green
+Yellow loses to Red
+
+#+BEGIN_SRC ditaa :file winning.png
+  /--------\        /--------\
+  |cBLU    |        |cRED    |
+  |        |        |        |
+  |        | -----> |        |
+  |        |        |        |
+  |        |        |        |
+  \--------/        \--------/
+                        |
+      ^  ^           ^  |
+      |  |           |  |
+      |  |           |  |
+      |  +------------+ |
+      |              || |
+      |  +-----------+| v
+      |  |            | 
+  /--------\        /--------\
+  |cGRE    |        |cYEL    |
+  |        |        |        |
+  |        | <----- |        |
+  |        |        |        |
+  |        |        |        |
+  \--------/        \--------/
+#+END_SRC
