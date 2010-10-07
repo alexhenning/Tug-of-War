@@ -11,8 +11,8 @@ This will be a tug of war game...
   |        |                                                                |        |
   |   *--> |                                                                | <--*   |
   |        |                                                                |        |
-  |        |      *--------->                               <---------*     |        |
-  |        |                                                                |        |
+  | Blue   |      *--------->                               <---------*     | Red    |
+  | spawn  |                                                                | spawn  |
   |        | *-------->                                          <--------* |        |
   |        |                                                                |        |
   |        |                                                                |        |
@@ -20,8 +20,8 @@ This will be a tug of war game...
   \--------+----------------------------------------------------------------+--------/
                                                              
        /----\       /----------------------------------------------\       /----\
-       |cBLU|       |                                              |       |cBLU|
-       |    |       |                                              |       |    |
+   Blue|cBLU|       |                                              |   Red |cBLU|
+   pad:|    |       |                                              |   Pad:|    |
        |    |       |                                              |       |    |
   /----+----+----\  |                                              |  /----+----+----\
   |cGRE|cAAA|cRED|  |                                              |  |cGRE|cAAA|cRED|
@@ -34,56 +34,55 @@ This will be a tug of war game...
        \----/       \----------------------------------------------/       \----/
 #+END_SRC
 
-
-
 * Units:
 - Blue units :: Fire rapid weak shots
-  * *HP:* 10
+  * *HP:* 9
   * *Speed:* 2
-  * *Damage:* 1  
+  * *Damage:* 1.5  
   * *Range:* 30 + 20 for the radius
-  * *Rate:* 2 ticks
+  * *Rate:* 3 ticks
 
 - Red units :: Have a moderate strength area attack
-  * *HP:* 8
+  * *HP:* 9
   * *Speed:* 2
-  * *Damage:* 1
-  * *Range:* 15 + 20 for the radius
+  * *Damage:* 1.5
+  * *Range:* 10 + 20 for the radius
   * *Rate:* 1 tick
 
 - Yellow units :: Have a quick weak melee
-  * *HP:* 15
+  * *HP:* 13
   * *Speed:* 3
   * *Damage:* 4
   * *Range:* 5 + 20 for the radius
-  * *Rate:* 2 ticks
+  * *Rate:* 3 ticks
 
 - Green units :: Have a strong slow shot
-  * *HP:* 20
+  * *HP:* 6
   * *Speed:* 1
-  * *Damage:* 25
-  * *Range:* 60 + 20 for the radius
-  * *Rate:* 40 ticks
+  * *Damage:* 5
+  * *Range:* 40 + 20 for the radius
+  * *Rate:* 20 ticks
 
 * Tests
 After one set of tests:
 
-Blue beats Red
-Blue loses to Yellow
-Blue loses to Green
+: Blue beats Red
+: Blue loses to Yellow
+: Blue loses to Green
 
-Green beats Blue
-Green beats Red
-Green Loses to Yellow
+: Green beats Blue
+: Green beats Red
+: Green Loses to Yellow
 
-Red loses to Blue
-Red loses to Green
-Red beats Yellow
+: Red loses to Blue
+: Red loses to Green
+: Red beats Yellow
 
-Yellow beats Blue
-Yellow beats Green
-Yellow loses to Red
+: Yellow beats Blue
+: Yellow beats Green
+: Yellow loses to Red
 
+Here's a diagram of the dominance in one on one
 #+BEGIN_SRC ditaa :file winning.png
   /--------\        /--------\
   |cBLU    |        |cRED    |

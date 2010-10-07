@@ -31,6 +31,8 @@ def main():
             
         screen.blit(background, (0, 0))
         contin = w.blit(screen, f)
+        text = f.render("Frame rate: %.2f"%clock.get_fps(), True, BLACK)
+        screen.blit(text, (400-text.get_width()/2, 4))
         pygame.display.flip()
         
         clock.tick(20)

@@ -12,10 +12,12 @@ class World(object):
         self.p1 = p1
         self.p1.spawn = Rect(0, 25, 50, 200, self.p1.color)
         self.p1.pad = Pad(0, 275, self.p1)
+        self.p1.units = []
 
         self.p2 = p2
         self.p2.spawn = Rect(750, 25, 50, 200, self.p2.color)
         self.p2.pad = Pad(650, 275, self.p2)
+        self.p2.units = []
         
         self.objects = [self.p1.spawn,
                         self.p1.pad,
@@ -29,8 +31,12 @@ class World(object):
         self.ticks += 1
 
         if self.ticks % 20 == 0:
-            self.units.extend(self.p2.getUnits())
-            self.units.extend(self.p1.getUnits())
+            for unit in self.p2.getUnits():
+                self.p2.units.append(unit)
+                self.units.append(unit)
+            for unit in self.p1.getUnits():
+                self.p1.units.append(unit)
+                self.units.append(unit)
             
         for unit in self.units:
             unit.act(self)
@@ -66,10 +72,12 @@ class World(object):
     def kill(self, unit):
         self.units.remove(unit)
         if unit.player == self.p1:
+            self.p1.units.remove(unit)
             self.p2.kills +=1
             if self.p2.kills in self.p2.bonuses:
                 self.p2.pad.addUnit()
         else:
+            self.p2.units.remove(unit)
             self.p1.kills += 1
             if self.p1.kills in self.p1.bonuses:
                 self.p1.pad.addUnit()

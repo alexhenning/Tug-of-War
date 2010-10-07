@@ -1,7 +1,8 @@
 
-import math, pygame
+import pygame, math
+from math import sqrt
 
-def dist(r1, r2):
+def magicDist(r1, r2):
     "Find the distance between the center of two 'rectangles'"
     if type(r1) == pygame.Rect: x1, y1 = r1.center
     elif type (r1) == tuple: x1, y1 = r1
@@ -11,7 +12,13 @@ def dist(r1, r2):
     elif type (r2) == tuple: x2, y2 = r2
     else: x2, y2 = r2.rect.center # Assume it's a class with .rect. I.E. Unit
 
-    return math.sqrt((x1 - x2)**2 + (y1 - y2)**2)
+    return sqrt((x1 - x2)**2 + (y1 - y2)**2)
+
+def dist(p1, p2):
+    return sqrt((p1[0] - p2[0])**2 + (p1[1] - p2[1])**2)
+
+def rectDist(r1, r2):
+    return dist(r1.center, r2.center)
 
 def calcAngle(p1, p2):
     """Calculate the angle between the line parellel to x that runs through p1
@@ -19,4 +26,5 @@ def calcAngle(p1, p2):
     a = p1[0] - p2[0]
     b = p1[1] - p2[1]
     return math.atan2(b, a)
+
 

@@ -3,6 +3,7 @@ import math
 from colors import *
 from pygame import Rect
 from utils import calcAngle, dist
+from cmath import sqrt
 
 class Unit(object):
     def __init__(self, player, coord, ai, hp, speed):
@@ -21,15 +22,14 @@ class Unit(object):
 
     def move(self, world, dest):
         "Move along the shortest path to the destination"
-        if dist(self, dest) <= self.speed:
+        if dist(self.rect.center, dest) <= self.speed:
             self.coord = dest
             self.rect.center = dest
         else:
             if dest == self.rect.center: return
             a = dest[0] - self.coord[0]
             b = dest[1] - self.coord[1]
-            c = math.sqrt(a**2 + b**2)
-            d = c / self.speed
+            d = math.sqrt(a**2 + b**2) / self.speed
             self.coord = (self.coord[0] + a/d, self.coord[1] + b/d)
             self.rect.center = self.coord
         
@@ -73,7 +73,7 @@ class MilitaryUnit(Unit):
         
     def act(self, world):
         self.coolOff -= 1
-        self.firing = self.isFiring()
+        self.firing = False
         
         action = self.ai.tick(self, world)
         if action.action == "move":
@@ -97,7 +97,6 @@ class MilitaryUnit(Unit):
         attackAngle = calcAngle(self.coord, unit.coord)
         self.attackPoint = (self.coord[0] - 10*math.cos(attackAngle),
                             self.coord[1] - 10*math.sin(attackAngle))
-    def isFiring(self): return False
 
 class BlueUnit(MilitaryUnit):
     """ A unit who fights with a "rifle"
