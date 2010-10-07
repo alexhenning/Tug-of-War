@@ -1,7 +1,14 @@
 Tug of war
 
-* About...
-This will be a tug of war game...
+* Introduction
+I wrote this game because I really enjoy the tug of war games on starcraft and I wanted to be able to play them with out starcraft installed + on linux. Xavier also really likes this game and how could I say no to him?
+
+* Installation
+1. Install [[http://www.python.org/download/][python 2.7]].
+2. Install [[http://www.pygame.org/download.shtml][pygame 1.91 for python 2.6]].
+3. Download and extract the source for [[http://github.com/alexhenning/Tug-of-War/zipball/master][tug of war]].
+4. Double click "game.py"
+5. Play!
 
 * Layout of the game:
 #+BEGIN_SRC ditaa :file diagram.png
@@ -33,6 +40,7 @@ This will be a tug of war game...
        |    |       |                                              |       |    |
        \----/       \----------------------------------------------/       \----/
 #+END_SRC
+Further instructions to come...
 
 * Units:
 - Blue units :: Fire rapid weak shots
