@@ -14,7 +14,7 @@ class SimpleAI(object):
         # enemies = [unit for unit in world.units if unit.player != self.player]
 
         closest, _dist = None, 1000
-        for enemy in enemies[:20]:
+        for enemy in enemies[:100]:
             d = abs(me.rect.x - enemy.rect.x) + abs(me.rect.y - enemy.rect.y)
             if d < _dist:
                 closest, _dist = enemy, d
@@ -22,6 +22,8 @@ class SimpleAI(object):
         if closest and dist(me.rect, closest.rect) <= me.range \
                 and me.coolOff <= 0:
             return Action("attack", unit=closest)
+#        elif closest and dist(me.rect, closest.rect) <= me.range:
+#            return Action("wait")
         elif closest:
             return Action("move", dest=closest.rect.center)
         else:

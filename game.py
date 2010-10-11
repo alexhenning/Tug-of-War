@@ -14,8 +14,11 @@ def main():
     background.fill((180, 180, 180))
     f = pygame.font.Font(pygame.font.get_default_font(), 20)
 
-    w = World(Player(DARKBLUE, (800, 125)), LevelPlayer(DARKRED, (0, 125)))
-
+    p1 = Player(DARKBLUE, (800, 125))
+    p2 = LevelPlayer(DARKRED, (0, 125))
+    w = World(p1, p2)
+    p2.world = w
+    
     clock = pygame.time.Clock()
 
     contin = True

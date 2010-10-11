@@ -67,6 +67,8 @@ class World(object):
         text = font.render(s, True, BLACK)
         screen.blit(text, (795-text.get_width(), 4))
 
+        self.p1.blit(screen, font)
+        self.p2.blit(screen, font)
 
     def kill(self, unit):
         self.units.remove(unit)
