@@ -30,13 +30,12 @@ class World(object):
     def tick(self):
         self.ticks += 1
 
-        if self.ticks % 20 == 0:
-            for unit in self.p2.getUnits():
-                self.p2.units.append(unit)
-                self.units.append(unit)
-            for unit in self.p1.getUnits():
-                self.p1.units.append(unit)
-                self.units.append(unit)
+        for unit in self.p2.getUnits():
+            self.p2.units.append(unit)
+            self.units.append(unit)
+        for unit in self.p1.getUnits():
+            self.p1.units.append(unit)
+            self.units.append(unit)
             
         for unit in self.units:
             unit.act(self)

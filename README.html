@@ -1,0 +1,285 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+               "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+lang="en" xml:lang="en">
+<head>
+<title>Tug of war</title>
+<meta http-equiv="Content-Type" content="text/html;charset=iso-8859-1"/>
+<meta name="generator" content="Org-mode"/>
+<meta name="generated" content="2010-10-07 20:01:44 EDT"/>
+<meta name="author" content="Alex Henning"/>
+<meta name="description" content=""/>
+<meta name="keywords" content=""/>
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  html { font-family: Times, serif; font-size: 12pt; }
+  .title  { text-align: center; }
+  .todo   { color: red; }
+  .done   { color: green; }
+  .tag    { background-color: #add8e6; font-weight:normal }
+  .target { }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  p.verse { margin-left: 3% }
+  pre {
+	border: 1pt solid #AEBDCC;
+	background-color: #F3F5F7;
+	padding: 5pt;
+	font-family: courier, monospace;
+        font-size: 90%;
+        overflow:auto;
+  }
+  table { border-collapse: collapse; }
+  td, th { vertical-align: top; }
+  dt { font-weight: bold; }
+  div.figure { padding: 0.5em; }
+  div.figure p { text-align: center; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size:smaller }
+  .code-highlighted {background-color:#ffff00;}
+  .org-info-js_info-navigation { border-style:none; }
+  #org-info-js_console-label { font-size:10px; font-weight:bold;
+                               white-space:nowrap; }
+  .org-info-js_search-highlight {background-color:#ffff00; color:#000000;
+                                 font-weight:bold; }
+  /*]]>*/-->
+</style>
+<script type="text/javascript">
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+</head>
+<body>
+<div id="content">
+
+<h1 class="title">Tug of war</h1>
+
+
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#sec-1">1 Introduction </a></li>
+<li><a href="#sec-2">2 Installation </a></li>
+<li><a href="#sec-3">3 Layout of the game: </a></li>
+<li><a href="#sec-4">4 Units: </a></li>
+<li><a href="#sec-5">5 Tests </a></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-1" class="outline-2">
+<h2 id="sec-1"><span class="section-number-2">1</span> Introduction </h2>
+<div class="outline-text-2" id="text-1">
+
+<p>I wrote this game because I really enjoy the tug of war games on starcraft and I wanted to be able to play them with out starcraft installed + on linux. Xavier also really likes this game and how could I say no to him?
+</p>
+</div>
+
+</div>
+
+<div id="outline-container-2" class="outline-2">
+<h2 id="sec-2"><span class="section-number-2">2</span> Installation </h2>
+<div class="outline-text-2" id="text-2">
+
+<ol>
+<li>
+Install <a href="http://www.python.org/download/">python 2.7</a>.
+</li>
+<li>
+Install <a href="http://www.pygame.org/download.shtml">pygame 1.91 for python 2.6</a>.
+</li>
+<li>
+Download and extract the source for <a href="http://github.com/alexhenning/Tug-of-War/zipball/master">tug of war</a>.
+</li>
+<li>
+Double click "game.py"
+</li>
+<li>
+Play!
+
+</li>
+</ol>
+</div>
+
+</div>
+
+<div id="outline-container-3" class="outline-2">
+<h2 id="sec-3"><span class="section-number-2">3</span> Layout of the game: </h2>
+<div class="outline-text-2" id="text-3">
+
+
+<p>
+<img src="diagram.png"  alt="diagram.png" />
+</p>
+<p>
+Further instructions to come&hellip;
+</p>
+</div>
+
+</div>
+
+<div id="outline-container-4" class="outline-2">
+<h2 id="sec-4"><span class="section-number-2">4</span> Units: </h2>
+<div class="outline-text-2" id="text-4">
+
+<dl>
+<dt>Blue units</dt><dd>
+Fire rapid weak shots
+<ul>
+<li>
+<b>HP:</b> 9
+</li>
+<li>
+<b>Speed:</b> 2
+</li>
+<li>
+<b>Damage:</b> 1.5  
+</li>
+<li>
+<b>Range:</b> 30 + 20 for the radius
+</li>
+<li>
+<b>Rate:</b> 3 ticks
+
+</li>
+</ul>
+</dd>
+<dt>Red units</dt><dd>
+Have a moderate strength area attack
+<ul>
+<li>
+<b>HP:</b> 9
+</li>
+<li>
+<b>Speed:</b> 2
+</li>
+<li>
+<b>Damage:</b> 1.5
+</li>
+<li>
+<b>Range:</b> 10 + 20 for the radius
+</li>
+<li>
+<b>Rate:</b> 1 tick
+
+</li>
+</ul>
+</dd>
+<dt>Yellow units</dt><dd>
+Have a quick weak melee
+<ul>
+<li>
+<b>HP:</b> 13
+</li>
+<li>
+<b>Speed:</b> 3
+</li>
+<li>
+<b>Damage:</b> 4
+</li>
+<li>
+<b>Range:</b> 5 + 20 for the radius
+</li>
+<li>
+<b>Rate:</b> 3 ticks
+
+</li>
+</ul>
+</dd>
+<dt>Green units</dt><dd>
+Have a strong slow shot
+<ul>
+<li>
+<b>HP:</b> 6
+</li>
+<li>
+<b>Speed:</b> 1
+</li>
+<li>
+<b>Damage:</b> 5
+</li>
+<li>
+<b>Range:</b> 40 + 20 for the radius
+</li>
+<li>
+<b>Rate:</b> 20 ticks
+
+</li>
+</ul>
+</dd>
+</dl>
+</div>
+
+</div>
+
+<div id="outline-container-5" class="outline-2">
+<h2 id="sec-5"><span class="section-number-2">5</span> Tests </h2>
+<div class="outline-text-2" id="text-5">
+
+<p>After one set of tests:
+</p>
+<pre class="example">
+Blue beats Red
+Blue loses to Yellow
+Blue loses to Green
+</pre>
+
+
+<pre class="example">
+Green beats Blue
+Green beats Red
+Green Loses to Yellow
+</pre>
+
+
+<pre class="example">
+Red loses to Blue
+Red loses to Green
+Red beats Yellow
+</pre>
+
+
+<pre class="example">
+Yellow beats Blue
+Yellow beats Green
+Yellow loses to Red
+</pre>
+
+
+<p>
+Here's a diagram of the dominance in one on one
+</p>
+<p>
+<img src="winning.png"  alt="winning.png" />
+</p>
+</div>
+</div>
+<div id="postamble">
+<p class="author"> Author: Alex Henning
+</p>
+<p class="date"> Date: 2010-10-07 20:01:44 EDT</p>
+<p class="creator">HTML generated by org-mode 7.01trans in emacs 23</p>
+</div>
+</div>
+</body>
+</html>

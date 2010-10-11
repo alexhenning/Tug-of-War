@@ -1,7 +1,7 @@
 
 import pygame, sys
 from world import World
-from player import Player
+from player import Player, LevelPlayer
 from colors import *
 
 def main():
@@ -14,7 +14,7 @@ def main():
     background.fill((180, 180, 180))
     f = pygame.font.Font(pygame.font.get_default_font(), 20)
 
-    w = World(Player(DARKBLUE, (800, 125)), Player(DARKRED, (0, 125)))
+    w = World(Player(DARKBLUE, (800, 125)), LevelPlayer(DARKRED, (0, 125)))
 
     clock = pygame.time.Clock()
 
